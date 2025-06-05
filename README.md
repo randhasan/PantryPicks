@@ -1,6 +1,6 @@
 # PantryPicks
 
-Final Project for CS1530 by Eli Worley, Joe Paci, Rand Hasan, Dylan Sparkenbaugh, and Sebastian Castro
+By Eli Worley, Joe Paci, Rand Hasan, Dylan Sparkenbaugh, and Sebastian Castro
 
 # What is PantryPicks?
 
