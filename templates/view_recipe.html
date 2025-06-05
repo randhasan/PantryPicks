@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='recipes_style.css') }}">
+{% endblock %}
+
+{% block navbar %}
+<a href="{{ url_for('about') }}" class="other_pages">About</a>
+<a href="{{ url_for('recipes') }}" class="other_pages">Recipes</a>
+<a href="{{ url_for('add_recipe') }}" class="other_pages">Add New Recipe</a>
+{% endblock %}
+
+{% block content %}
+<div class="recipe-view-container">
+    <h1>{{ recipe.title }}</h1>
+    
+    <div class="recipe-image-container">
+        <img src="{{ recipe.picture }}" alt="{{ recipe.title }}" class="recipe-image">
+    </div>
+    
+    <div class="recipe-actions">
+        <button id="save-button" class="button {{ 'saved' if is_saved else '' }}"
+                onclick="{{ 'unsaveRecipe()' if is_saved else 'saveRecipe()' }}">
+            {{ 'Unsave Recipe' if is_saved else 'Save Recipe' }}
+        </button>
+        <p id="save-message"></p>
+    </div>
+    
+    <div class="recipe-details">
+        <h3>Ingredients:</h3>
+        <ul class="ingredients-list">
+            {% for ingredient in recipe.ingredients %}
+            <li>{{ ingredient }}</li>
+            {% endfor %}
+        </ul>
+        
+        <h3>Instructions:</h3>
+        <div class="instructions">
+            {{ recipe.instructions | replace('\n', '<br>') | safe }}
+        </div>
+    </div>
+</div>
+
+<script>
+function saveRecipe() {
+    const button = document.getElementById('save-button');
+    const message = document.getElementById('save-message');
+    
+    button.disabled = true;
+    button.textContent = 'Saving...';
+    
+    fetch('/save_recipe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id: "{{ recipe.id }}",
+            title: "{{ recipe.title }}",
+            picture: "{{ recipe.picture }}",
+            category: "{{ recipe.category }}",
+            ingredients: {{ recipe.ingredients|tojson }},
+            instructions: `{{ recipe.instructions }}`
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Save failed');
+        button.textContent = 'Unsave Recipe';
+        button.className = 'button saved';
+        button.onclick = unsaveRecipe;
+        showMessage('Recipe saved!', 'success');
+        return response.json();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showMessage('Failed to save recipe', 'error');
+    })
+    .finally(() => {
+        button.disabled = false;
+    });
+}
+
+function unsaveRecipe() {
+    const button = document.getElementById('save-button');
+    const message = document.getElementById('save-message');
+    
+    button.disabled = true;
+    button.textContent = 'Unsaving...';
+    
+    fetch('/unsave_recipe', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id: "{{ recipe.id }}"
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Unsave failed');
+        
+        {% if recipe_source == 'saved' %}
+        // Redirect if viewing from saved recipes
+        window.location.href = "{{ url_for('recipes') }}";
+        {% else %}
+        // Just update button if viewing from API
+        button.textContent = 'Save Recipe';
+        button.className = 'button';
+        button.onclick = saveRecipe;
+        showMessage('Recipe unsaved', 'info');
+        {% endif %}
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showMessage('Failed to unsave recipe', 'error');
+    })
+    .finally(() => {
+        button.disabled = false;
+    });
+}
+
+function showMessage(text, type) {
+    const message = document.getElementById('save-message');
+    message.textContent = text;
+    message.style.color = type === 'error' ? 'red' : 
+                        type === 'success' ? 'green' : 'blue';
+    message.style.display = 'block';
+    
+    setTimeout(() => {
+        message.style.display = 'none';
+    }, 3000);
+}
+</script>
+{% endblock %}

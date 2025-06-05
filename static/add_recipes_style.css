@@ -1,0 +1,70 @@
+body{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin: 0;
+}
+
+.header_bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    background-color: red;
+    border: 2px solid black;
+    padding: 0 20px;
+    overflow: hidden; /* ensures nothing spills out */
+}
+
+.title {
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    padding: 0px;
+    -webkit-text-stroke: 1.5px black; 
+}
+
+.content {
+    padding-left: 15px;
+}
+
+label{
+    font-weight: bold;
+    font-size: 25px;
+    display: inline-block; /* makes spacing look slightly better */
+    margin-bottom: 4px;
+}
+
+.add_recipe_button{
+    font-size: 25px;
+    font-weight: bold;
+    background-color: red;
+    color: white;
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    -webkit-text-stroke: .7px black;
+    border: 2px solid black;
+}
+
+.add_recipe_button:hover{
+    background-color: black;
+}
+
+.back_button{
+    position:fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: red;
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+    -webkit-text-stroke: .75px black;
+    padding: 5px;
+    padding-right: 10px;
+    padding-left: 10px;
+    border: 2px solid black;
+    text-decoration:none;
+}
+
+.back_button:hover{
+    background-color: black;
+}

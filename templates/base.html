@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>PantryPicks</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home_style.css')}}" />
+        {% block head %}
+        {% endblock %}
+    </head>
+
+    <body>
+        <div class="navbar">
+            <a href="{{ url_for('home') }}" class="page_title">PantryPicks</a>
+            <div>
+                {% block navbar %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="body-content">
+           {% block content %}
+           {% endblock %}
+        </div>
+    </body>
+</html>

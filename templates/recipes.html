@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='recipes_style.css') }}">
+{% endblock %}
+
+{% block navbar %}
+<a href="{{ url_for('about') }}" class="other_pages">About</a>
+<a href="{{ url_for('search_recipe') }}" class="other_pages">Search Recipes</a>
+<a href="{{ url_for('add_recipe') }}" class="other_pages">Add New Recipe</a>
+{% endblock %}
+
+{% block content %}
+<div class="recipes-page-container">
+    <h2 class="page-title">Your Saved Recipes</h2>
+
+    <div class="recipe-grid">
+        {% if saved_recipes %}
+            {% for recipe in saved_recipes %}
+                <div class="recipe-card">
+                    <div class="card-image-container">
+                        <img src="{{ recipe.picture }}" alt="{{ recipe.title }}" class="recipe-image">
+                        <div class="card-overlay">
+                            <a href="/view_saved_recipe/{{ recipe.id }}" class="view-recipe-btn">View Recipe</a>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h3 class="recipe-title">{{ recipe.title }}</h3>
+                        <p class="recipe-category">{{ recipe.category }}</p>
+                        <div class="quick-info">
+                            <span class="ingredient-count">
+                                {{ recipe.ingredients|length }} ingredients
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty-state">
+                <img src="{{ url_for('static', filename='images/empty-recipe.svg') }}" alt="No recipes" class="empty-icon">
+                <p>You haven't saved any recipes yet.</p>
+                <a href="{{ url_for('add_recipe') }}" class="add-recipe-btn">Add Your First Recipe</a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

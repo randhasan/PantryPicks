@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='recipes_style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="search-container">
+    <select id="ingredient-select">
+        <option value="">Select ingredient</option>
+    </select>
+    <select id="category-select" style="color: green;">
+        <option value="">Select category</option>
+    </select>
+    <select id="area-select" style="color: red;">
+        <option value="">Select area </option>
+    </select>
+    
+    <div id="selected-ingredients" class="ingredients-list"></div>
+    <div id="selected-categories" ></div>
+    <div id="selected-areas" ></div>
+
+    <hr>
+    
+    <button id="search-btn" class="button">Search Recipes</button>
+</div>
+
+<div id="results" class="results"></div>
+
+<script src="{{ url_for('static', filename='search_recipe.js') }}"></script>
+{% endblock %}
+
+{% block navbar %}
+<a href="{{ url_for('about') }}" class="other_pages">About</a>
+<a href="{{ url_for('recipes') }}" class="other_pages">Recipes</a>
+<a href="{{ url_for('add_recipe') }}" class="other_pages">Add New Recipe</a>
+{% endblock %}

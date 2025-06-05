@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <p>Final Project for CS1530 by Eli Worley, Joe Paci, Rand Hasan, Dylan Sparkenbaugh, and Sebastian Castro</p>
+
+    <h1>What is PantryPicks?</h1>
+
+    <p>PantryPicks is a website designed to help users who are looking to find recipes easily based on their preferences.</p>
+    <p>Select your ingredients, any categories you want, and any area you want your food from and search!</p>
+    <p>PantryPicks will automatically find you recipes which match your criteria, easily there for your viewing pleasure.</p>
+
+    <h1>How do I use PantryPicks</h1>
+
+    <p>Click the "Search Recipes" button in the navbar at the top of the screen to get to start finding recipes.</p>
+    <p>The "Recipes" button will take you to a page with all of your saved recipes.</p>
+    <p>Clicking the logo in the top left will allow you to log in as a different user.</p>
+
+    <h1>How was PantryPicks made?</h1>
+
+    <p>PantryPicks uses Flask, HTML, and CSS for the frontend, with additional Python and Javascript for some backend elements.</p>
+{% endblock %}
+
+{% block navbar %}
+    <a href="{{ url_for('about') }}" class="other_pages">About</a>
+    <a href="{{ url_for('recipes') }}" class="other_pages">Recipes</a>
+    <a href="{{ url_for('search_recipe') }}" class="other_pages">Search Recipes</a>
+    <a href="{{ url_for('add_recipe') }}" class="other_pages">Add New Recipe</a>
+{% endblock %}

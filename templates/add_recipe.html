@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Recipe</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='add_recipes_style.css') }}">
+    </head>
+
+    <body>
+        <div class = "header_bar">
+            <h1 class = "title">Add a New Recipe</h1>
+        </div>
+        <div class = "content">
+            <form method = "POST">
+                <br>
+                <label>Title:</label><br>
+                <input type="text" name="title" required><br><br>
+    
+                <label>Category:</label><br>
+                <input type="text" name="category"><br><br>
+    
+                <label>Ingredients (one per line):</label><br>
+                <textarea name="ingredients" rows="5" cols="30" required></textarea><br><br>
+    
+                <label>Instructions:</label><br>
+                <textarea name="instructions" rows="5" cols="50" required></textarea><br><br>
+    
+                <label>Image URL:</label><br>
+                <input type="text" name="picture"><br><br>
+                
+                <button type="submit" class="add_recipe_button">Add Recipe</button>
+            </form>
+        </div>
+
+        <a href="{{ url_for('recipes') }}" class="back_button">Back to Recipes</a>
+    </body>
+</html>
